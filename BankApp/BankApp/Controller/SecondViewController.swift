@@ -15,7 +15,7 @@
 import UIKit
 import RealmSwift
 
-class SecondViewController: UIViewController,BankManagerDelegate {
+class SecondViewController: UIViewController,BankManagerDelegate,UISearchTextFieldDelegate {
     @IBOutlet weak var searchText: UITextField!
     @IBOutlet weak var bankName: UILabel!
     @IBOutlet weak var ifscCode: UILabel!
@@ -27,8 +27,16 @@ class SecondViewController: UIViewController,BankManagerDelegate {
         super.viewDidLoad()
         bank.delegate = self
         // Do any additional setup after loading the view.
+        self.searchText.delegate = self
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return searchText.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+         self.view.endEditing(true)
+    }
     
     @IBAction func saveData(_ sender: UIButton) {
         let BankDataDetails = BankSaveData()
